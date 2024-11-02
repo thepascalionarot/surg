@@ -27,11 +27,11 @@ export default function SurgeTokenGenerator() {
       })
       
       const data = await response.json()
-      if (!response.ok) throw new Error(data.message)
+      if (!response.ok) throw new Error(data.message || 'Failed to generate token')
       
       setToken(data.token)
     } catch (err) {
-      setError(err.message || 'Failed to generate token')
+      setError(err instanceof Error ? err.message : 'An unknown error occurred')
     } finally {
       setLoading(false)
     }
